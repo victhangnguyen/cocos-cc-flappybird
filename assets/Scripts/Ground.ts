@@ -9,6 +9,8 @@ import {
 } from "cc";
 const { ccclass, property } = _decorator;
 
+import { GameCtrl } from "./GameCtrl";
+
 @ccclass("Ground")
 export class Ground extends Component {
   @property({
@@ -39,6 +41,8 @@ export class Ground extends Component {
   public tempStartLocation2 = new Vec3();
   public tempStartLocation3 = new Vec3();
 
+  //! Game controller
+  public gameCtrlSpeed: GameCtrl = new GameCtrl();
   //! Game speed
   public gameSpeed: number = 50;
 
@@ -67,6 +71,9 @@ export class Ground extends Component {
   }
 
   update(deltaTime: number) {
+    //! Setting game speed
+    this.gameSpeed = this.gameCtrlSpeed.speed;
+
     this.tempStartLocation1 = this.ground1.position;
     this.tempStartLocation2 = this.ground2.position;
     this.tempStartLocation3 = this.ground3.position;
