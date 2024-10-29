@@ -7,10 +7,10 @@ import {
   Input,
   input,
   KeyCode,
-  Node,
 } from "cc";
 import { Ground } from "./Ground";
 import { Resutls } from "./Resutls";
+import { Bird } from "./Bird";
 const { ccclass, property } = _decorator;
 
 @ccclass("GameCtrl")
@@ -33,6 +33,12 @@ export class GameCtrl extends Component {
     tooltip: "Results here",
   })
   public result: Resutls;
+
+  @property({
+    type: Bird,
+    tooltip: "Bird prefab owner here",
+  })
+  public bird: Bird;
 
   @property({
     type: CCInteger,
@@ -67,6 +73,8 @@ export class GameCtrl extends Component {
         break;
       case KeyCode.KEY_Q:
         this.resetGame();
+      case KeyCode.KEY_S:
+        this.bird.moveDownBird();
     }
   }
 
@@ -82,7 +90,7 @@ export class GameCtrl extends Component {
 
   resetGame() {
     this.result.resetScore();
-    this.startGame()
+    this.startGame();
   }
 
   update(deltaTime: number) {}
