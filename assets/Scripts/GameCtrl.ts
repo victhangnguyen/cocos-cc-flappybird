@@ -11,7 +11,9 @@ import {
 import { Ground } from "./Ground";
 import { Resutls } from "./Resutls";
 import { Bird } from "./Bird";
-import { Pipes } from "./Pipes";
+//! Pools
+import { PipePool } from "./PipePool";
+
 const { ccclass, property } = _decorator;
 
 @ccclass("GameCtrl")
@@ -41,6 +43,11 @@ export class GameCtrl extends Component {
   })
   public bird: Bird;
 
+  @property({
+    type: PipePool,
+    tooltip: "Editor tooltip of this property",
+  })
+  public pipeQueue: PipePool;
   @property({
     type: CCInteger,
     tooltip: "Add ground prefab owner here",
