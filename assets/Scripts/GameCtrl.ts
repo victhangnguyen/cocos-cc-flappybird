@@ -19,11 +19,6 @@ import { PipePool } from "./PipePool";
 
 @ccclass("GameCtrl")
 export class GameCtrl extends Component {
-  // @property({
-  //   type: Ground,
-  //   tooltip: "Add ground prefab owner here",
-  // })
-  // public ground: Ground;
 
   @property({
     type: Ground,
