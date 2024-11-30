@@ -9,9 +9,13 @@ import {
   KeyCode,
   Node,
 } from "cc";
+const { ccclass, property } = _decorator;
+
 import { Ground } from "./Ground";
 import { Resutls } from "./Resutls";
-const { ccclass, property } = _decorator;
+import { Bird } from "./Bird";
+//! Pools
+import { PipePool } from "./PipePool";
 
 @ccclass("GameCtrl")
 export class GameCtrl extends Component {
@@ -35,6 +39,18 @@ export class GameCtrl extends Component {
   public result: Resutls;
 
   @property({
+    type: Bird,
+    tooltip: "Bird prefab owner here",
+  })
+  public bird: Bird;
+
+  @property({
+    type: PipePool,
+    tooltip: "Editor tooltip of this property",
+  })
+  public pipeQueue: PipePool;
+
+  @property({
     type: CCInteger,
     tooltip: "Add ground prefab owner here",
   })
@@ -46,15 +62,19 @@ export class GameCtrl extends Component {
   public pipeSpeed: number = 200;
 
   onLoad(): void {
-    this.initListeners();
+    this.initListener();
 
     this.result.resetScore();
 
     director.pause();
   }
 
-  initListeners() {
+  initListener() {
     input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
+    
+    this.node.on(Node.EventType.TOUCH_START, () => {
+      this.bird.fly();
+    });
   }
 
   onKeyDown(event: EventKeyboard) {
@@ -67,6 +87,11 @@ export class GameCtrl extends Component {
         break;
       case KeyCode.KEY_Q:
         this.resetGame();
+        this.bird.resetBird();
+      case KeyCode.KEY_D:
+        this.bird.moveDownBird();
+      case KeyCode.KEY_F:
+        this.bird.fly();
     }
   }
 
@@ -82,8 +107,15 @@ export class GameCtrl extends Component {
 
   resetGame() {
     this.result.resetScore();
-    this.startGame()
+    // this.pipeQueue.reset(); //! Cần cập nhật lên
+    this.startGame();
   }
 
-  update(deltaTime: number) {}
+  passPipe() {
+    this.result.addScore();
+  }
+
+  createPipe() {
+    this.pipeQueue.addPool();
+  }
 }

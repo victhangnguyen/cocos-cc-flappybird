@@ -21,7 +21,7 @@ export class Resutls extends Component {
     //! update the score to the new number on the screen
     this.currentScore = num;
     //! display the new score
-    this.scoreLabel.string = this.currentScore.toString();
+    this.scoreLabel.string = "" + this.currentScore;
   }
 
   // method
