@@ -29,6 +29,8 @@ export class Bird extends Component {
   //! Temporary location property of the Bird
   public birdLocation: Vec3;
 
+  public hitSomething: boolean;
+
   onLoad(): void {
     this.resetBird();
 
@@ -41,6 +43,8 @@ export class Bird extends Component {
 
     //! Reset the bird location - place the bird in location
     this.node.setPosition(this.birdLocation);
+
+    this.hitSomething = false;
   }
 
   fly(): void {
