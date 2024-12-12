@@ -35,6 +35,7 @@ export class Pipes extends Component {
 
   //! Temporary location of the down pipe
   public tempStartLocationDown: Vec3 = new Vec3();
+
   //! get the size of the screen in case we decide to change the content size
   public scene = screen.windowSize;
 
@@ -43,19 +44,25 @@ export class Pipes extends Component {
   public pipeSpeed: number; //! final speed of the pipes
   public tempSpeed: number; //! temporary speed of the pipes
 
+  //! scoring mechanism
   //! make sure it is only counted once
   isPass: boolean;
 
-  onLoad(): void {
+  public onLoad(): void {
     //! In GameCtrl, we cannot import the PipesComponent, because it make a circular dependency
     this.game = find("GameCtrl").getComponent(GameCtrl);
+
     //! get pipeSpeed from game from gameComponent
     this.pipeSpeed = this.game.pipeSpeed;
+
     //! work on original position
     this.initPos();
+
+    //set the scoring mechanism to stop activating
+    this.isPass = false;
   }
 
-  initPos(): void {
+  public initPos(): void {
     //! Start with the initial position of x for both pipes
     this.tempStartLocationUp.x =
       this.topPipe.getComponent(UITransform).width + this.scene.width;
@@ -97,12 +104,19 @@ export class Pipes extends Component {
     this.topPipe.setPosition(this.tempStartLocationUp);
 
     if (this.isPass == false && this.topPipe.position.x <= 0) {
+      //make sure it is only counted once
       this.isPass = true;
+
+      //add a point to the score
       this.game.passPipe();
     }
 
+    //if passed the screen, reset pipes to new location
     if (this.bottomPipe.position.x < 0 - this.scene.width) {
+      //create a new pipe
       this.game.createPipe();
+
+      //delete this node for memory saving
       this.destroy();
     }
   }
