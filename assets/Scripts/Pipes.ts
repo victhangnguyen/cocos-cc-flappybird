@@ -112,7 +112,8 @@ export class Pipes extends Component {
     }
 
     //if passed the screen, reset pipes to new location
-    if (this.bottomPipe.position.x < 0 - this.scene.width) {
+    //! fix this.bottomPipe.position.x => this.topPipe.position.x
+    if (this.topPipe.position.x < 0 - this.scene.width) {
       //create a new pipe
       this.game.createPipe();
 

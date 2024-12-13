@@ -1817,7 +1817,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 0,
+      "y": 21.178,
       "z": 0
     },
     "_lrot": {
@@ -1879,7 +1879,7 @@
     "bullet": false,
     "awakeOnLoad": true,
     "_group": 1,
-    "_type": 2,
+    "_type": 0,
     "_allowSleep": true,
     "_gravityScale": 1,
     "_linearDamping": 0,
@@ -1946,7 +1946,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 554.091,
+      "y": 537.338,
       "z": 0
     },
     "_lrot": {
